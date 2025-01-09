@@ -4,12 +4,20 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
+  const iconPath =
+    process.platform === 'win32'
+      ? join(__dirname, '../../resources/icon.ico') // Windows
+      : process.platform === 'darwin'
+        ? join(__dirname, '../../resources/icon.icns') // macOS
+        : join(__dirname, '../../resources/icon.png') // Linux
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
     autoHideMenuBar: true,
+    icon: iconPath,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
