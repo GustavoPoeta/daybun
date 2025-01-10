@@ -1,5 +1,5 @@
 import './assets/main.css'
-import Nav from './components/Nav'
+import Nav from './components/nav/Nav'
 
 function App(): JSX.Element {
   return (
