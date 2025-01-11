@@ -2,6 +2,7 @@ import UserNav from "./UserNav";
 import userImage1 from "../../assets/blushingKittyKat.png";
 import userImage2 from "../../assets/bunnyGirl.png";
 import userImage3 from "../../assets/image.png";
+import SearchUser from "./SearchUser";
 import optionSvg from "../../assets/gear-fill.svg";
 import searchSvg from "../../assets/search.svg";
 
@@ -13,6 +14,7 @@ export default function Nav (): JSX.Element {
                 
                 {/* navigation between users*/}
                 <div className="w-[99%] h-[90%] pt-8 flex flex-col items-center bg-white rounded-tr-xl">
+                    <SearchUser />
                     <UserNav username="Ash" imagePath={userImage1} />
                     <UserNav username="Nic" imagePath={userImage2} />
                     <UserNav username="Brady" imagePath={userImage3} />
