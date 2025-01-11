@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 
-export default function useWindowDimensions () {
-    const [dimensions, setDimensions] = useState({
+interface windowDimensions {
+    width: number,
+    height: number
+}
+
+export default function useWindowDimensions (): windowDimensions {
+
+    const [dimensions, setDimensions] = useState<windowDimensions>({
 
         width: window.innerWidth,
     

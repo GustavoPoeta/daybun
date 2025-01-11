@@ -4,48 +4,52 @@ import userImage2 from "../../assets/bunnyGirl.png";
 import userImage3 from "../../assets/image.png";
 import SearchUser from "./SearchUser";
 import optionSvg from "../../assets/gear-fill.svg";
-import { useState, useRef } from "react";
-import useMousePosition from "@renderer/hooks/useMousePosition";
+import { useState, useRef, useEffect } from "react";
+import useWindowDimensions from "@renderer/hooks/useWindowDimesions";
 
 export default function Nav(): JSX.Element {
 
     const navTab = useRef<HTMLDivElement>(null);
 
-    const [isUserResizing, setIsUserResizing] = useState<boolean>();
-    const {x} = useMousePosition();
-    
-    const handleResizeNavBar = () => {
-        const rect = navTab.current?.getBoundingClientRect();
+    const {width} = useWindowDimensions();
 
-        if (!x) {
-            return;
-        }
+    const [isUserResizing, setIsUserResizing] = useState<boolean>(false);
+    const [navTabStyle, setNavTabStyle] = useState({
+        width: width * 0.2,
+    });
 
-        if (!rect) {
-            return;        
-        }
-
-        const positionDiff = x - rect.x;
-
-        const newWidth = positionDiff + rect.width; 
-
-        if (newWidth < 300) {
-            return;
-        }
-
-        const navTabStyle = {
-            width: newWidth
+    useEffect(() => {
+        const handleMouseUp = () => {
+            setIsUserResizing(false);
         };
-
-        return navTabStyle;
-    };
-
+    
+        const handleMouseMove = (event: MouseEvent) => {
+            if (isUserResizing && navTab.current) {
+                const rect = navTab.current.getBoundingClientRect();
+                const newWidth = event.clientX - rect.left;
+                setNavTabStyle({
+                    width: newWidth,
+                });
+            }
+        };
+    
+        if (isUserResizing) {
+            document.addEventListener("mousemove", handleMouseMove);
+            document.addEventListener("mouseup", handleMouseUp);
+        }
+    
+        return () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+        };
+    }, [isUserResizing]);
+    
 
     return (
         <nav 
             ref={navTab} 
-            style = {isUserResizing ? handleResizeNavBar() : undefined}
-            className="w-1/5 h-screen flex rounded-lg bg-gradient-to-b from-yellow-200 to-pink-300 shadow-[5px_0px_12px_0px_rgba(0,_0,_0,_0.2)]"
+            style = {navTabStyle}
+            className="h-screen flex rounded-lg bg-gradient-to-b from-yellow-200 to-pink-300 shadow-[5px_0px_12px_0px_rgba(0,_0,_0,_0.2)]"
         >
 
             <div className="w-[99%] h-full">
@@ -66,7 +70,7 @@ export default function Nav(): JSX.Element {
             <div 
                 onMouseDown={() => setIsUserResizing(true)} 
                 onMouseUp={() => setIsUserResizing(false)}
-                className="w-[1%] h-full hover:cursor-e-resize"
+                className={isUserResizing ? "w-screen h-full absolute hover:cursor-e-resize" : "w-[1%] h-full hover:cursor-e-resize"}
             ></div>
 
         </nav>
