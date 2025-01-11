@@ -7,6 +7,10 @@ import optionSvg from "../../assets/gear-fill.svg";
 import { useState, useRef, useEffect } from "react";
 import useWindowDimensions from "@renderer/hooks/useWindowDimesions";
 
+interface navTabStyle {
+    width: number
+}
+
 export default function Nav(): JSX.Element {
 
     const navTab = useRef<HTMLDivElement>(null);
@@ -14,7 +18,7 @@ export default function Nav(): JSX.Element {
     const {width} = useWindowDimensions();
 
     const [isUserResizing, setIsUserResizing] = useState<boolean>(false);
-    const [navTabStyle, setNavTabStyle] = useState({
+    const [navTabStyle, setNavTabStyle] = useState<navTabStyle>({
         width: width * 0.2,
     });
 
@@ -29,7 +33,7 @@ export default function Nav(): JSX.Element {
                 const rect = navTab.current.getBoundingClientRect();
                 const newWidth = event.clientX - rect.left;
 
-                if (newWidth > 100) {
+                if (newWidth >= 100 && newWidth <= width * 0.5) {
                     setNavTabStyle({
                         width: newWidth,
                     });
@@ -61,9 +65,9 @@ export default function Nav(): JSX.Element {
                     {/* navigation between users*/}
                 <div className="w-full h-[90%] pt-8 flex flex-col items-center bg-white rounded-tr-xl">
                     <SearchUser />
-                    <UserNav username="Ash" imagePath={userImage1} />
-                    <UserNav username="Nic" imagePath={userImage2} />
-                    <UserNav username="Brady" imagePath={userImage3} />
+                    <UserNav username="Ash" navWidth={navTabStyle.width} imagePath={userImage1} />
+                    <UserNav username="Nic" navWidth={navTabStyle.width} imagePath={userImage2} />
+                    <UserNav username="Brady" navWidth={navTabStyle.width} imagePath={userImage3} />
                 </div>
 
                 {/* options and search */}
