@@ -25,11 +25,16 @@ export default function Nav(): JSX.Element {
     
         const handleMouseMove = (event: MouseEvent) => {
             if (isUserResizing && navTab.current) {
+
                 const rect = navTab.current.getBoundingClientRect();
                 const newWidth = event.clientX - rect.left;
-                setNavTabStyle({
-                    width: newWidth,
-                });
+
+                if (newWidth > 100) {
+                    setNavTabStyle({
+                        width: newWidth,
+                    });
+                }
+
             }
         };
     
