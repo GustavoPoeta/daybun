@@ -38,10 +38,6 @@ Thumbs.db
 package-lock.json
 yarn.lock
 
-# Electron-specific files
-release/
-resources/
-
 # Miscellaneous
 *.pid
 *.seed
