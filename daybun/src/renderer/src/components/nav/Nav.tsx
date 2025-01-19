@@ -6,12 +6,16 @@ import SearchUser from "./SearchUser";
 import optionSvg from "../../assets/gear-fill.svg";
 import { useState, useRef, useEffect } from "react";
 import useWindowDimensions from "@renderer/hooks/useWindowDimesions";
+import { Context } from "@renderer/contexts/Context";
+import { useContext } from "react";
 
 interface navTabStyle {
     width: number
 }
 
 export default function Nav(): JSX.Element {
+
+    const { setNavWidth } = useContext(Context);
 
     const navTab = useRef<HTMLDivElement>(null);
 
@@ -37,6 +41,7 @@ export default function Nav(): JSX.Element {
                     setNavTabStyle({
                         width: newWidth,
                     });
+                    setNavWidth(newWidth);
                 }
 
             }
