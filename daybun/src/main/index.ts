@@ -1,15 +1,14 @@
 import { app, shell, BrowserWindow, ipcMain, screen } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
 
 function createWindow(): void {
   const iconPath =
     process.platform === 'win32'
-      ? join(__dirname, '../../resources/icon.ico') // Windows
+      ? join(__dirname, '../public/icon.ico') // Windows
       : process.platform === 'darwin'
-        ? join(__dirname, '../../resources/icon.icns') // macOS
-        : join(__dirname, '../../resources/icon.png') // Linux
+        ? join(__dirname, '../public/icon.icns') // macOS
+        : join(__dirname, '../public/icon.png') // Linux
 
 
   const primaryDisplay = screen.getPrimaryDisplay();
@@ -22,7 +21,7 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     icon: iconPath,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    // ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
