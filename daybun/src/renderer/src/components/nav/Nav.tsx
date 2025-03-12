@@ -68,7 +68,7 @@ export default function Nav(): JSX.Element {
 
             <div className="w-[99%] h-full">
                     {/* navigation between users*/}
-                <div className="w-full h-[90%] pt-8 flex flex-col items-center bg-white rounded-tr-xl">
+                <div className="w-full h-[88%] pt-8 flex flex-col items-center bg-white rounded-tr-xl">
                     <SearchUser />
                     <UserNav username="Ash" navWidth={navTabStyle.width} imagePath={userImage1} />
                     <UserNav username="Nic" navWidth={navTabStyle.width} imagePath={userImage2} />
@@ -76,7 +76,7 @@ export default function Nav(): JSX.Element {
                 </div>
 
                 {/* options and search */}
-                <div className="w-full h-[10%] flex items-center justify-evenly  bg-white rounded-br-xl border-t-2 border-pink-100">
+                <div className="w-full h-[12%] flex items-center justify-evenly  bg-white rounded-br-xl border-t-2 border-pink-100">
                     <img src={optionSvg} alt="Go to Options button" className="w-1/6 h-2/6 hover:cursor-pointer" />
                 </div>
             </div>
